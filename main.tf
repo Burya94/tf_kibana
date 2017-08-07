@@ -39,7 +39,7 @@ resource "aws_instance" "kibana" {
 
 resource "aws_security_group" "kibana" {
     name   = "${count.index}kibana"
-    vpc_id = "${aws_vpc.vpc.id}"
+    vpc_id = "${var.vpc.id}"
     egress {
         from_port   = 0
         to_port     = 0
