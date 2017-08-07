@@ -27,9 +27,9 @@ resource "aws_instance" "kibana" {
   key_name        = "${var.key_name}"
   ami             = "${data.aws_ami.centos7.id}"
   instance_type   = "${var.instype}"
-  user_data       = "${data.template_file.logstash.rendered}"
+  user_data       = "${data.template_file.kibana.rendered}"
   subnet_id       = "${element(var.subnet_id, count.index)}"
-  security_groups = ["${aws_security_group.logstash.id}"]
+  security_groups = ["${aws_security_group.kibana.id}"]
   depends_on      = ["aws_security_group.kibana"]
 
   tags {
@@ -38,7 +38,7 @@ resource "aws_instance" "kibana" {
 }
 
 resource "aws_security_group" "kibana" {
-    name   = "${var.res_nameprefix}${var.env}${var.nat_inst_sg_namesuffix}${count.index}kiaban"
+    name   = "${count.index}kibana"
     vpc_id = "${aws_vpc.vpc.id}"
     egress {
         from_port   = 0
@@ -76,6 +76,6 @@ resource "aws_security_group" "kibana" {
     }
 
     tags {
-        Name = "${var.res_nameprefix}${var.env}${var.nat_inst_sg_namesuffix}${count.index}kibana"
+        Name = "${count.index}kibana"
     }
 }
