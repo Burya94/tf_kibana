@@ -23,7 +23,9 @@ variable "vpc_netprefix" {
 variable "pub_sn_netnumber" {
     default = "23"
 }
-variable "number_of_azs"{}
+variable "number_of_azs"{
+    default = 1
+}
 variable "priv_sn_netnumber" {}
 variable "priv_sn_netmask" {}
 variable "pub_sn_netmask"{}
