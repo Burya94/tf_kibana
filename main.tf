@@ -27,6 +27,7 @@ resource "aws_instance" "kibana" {
   key_name        = "${var.key_name}"
   ami             = "${data.aws_ami.centos7.id}"
   instance_type   = "${var.instype}"
+  associate_public_ip_address = true
   user_data       = "${data.template_file.kibana.rendered}"
   subnet_id       = "${element(var.subnet_id, count.index)}"
   security_groups = ["${aws_security_group.kibana.id}"]
